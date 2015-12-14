@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <base href="/BackofficeSbAdminBoostrap/"></base>
+    <base href="${pageContext.request.contextPath}/">
 
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
