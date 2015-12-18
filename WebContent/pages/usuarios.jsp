@@ -32,39 +32,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
-                        
-                        conectarnos bbdd
-                        
-                        <%
-                        	//crear conexion
-                        	DbConnection conn = new DbConnection();
-                        	//sentencia sql
-                        	String sql = "select * from persona";
-                        	//creamos consulta
-                        	PreparedStatement ps = conn.getConnection().prepareStatement(sql);
-                        	//ejecutar la consulta
-                        	ResultSet rs = ps.executeQuery();
-                        
-                        	//ArrayList<Persona> 
-                        	ArrayList<Persona> lista = new ArrayList<Persona>();
-                        	Persona p = null;
-                        	
-                        	//iterar sobre los resultados                        	
-                        	 while(rs.next()){
-                        		 
-                        		 p = new Persona();
-                        		 p.setId( rs.getInt("id") );
-                        		 p.setNombre( rs.getString("nombre"));
-                        		 
-                        		 lista.add(p);
-                        	 }
-                        
-                        	out.print(lista);
-                        
-                        %>
-                        
-                        
+                        </div>                      
                         
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -82,10 +50,17 @@
                                             </thead>
                                             <tbody>
                                             
-                                            <% for ( Persona persona : lista ){ %>
+                                            <% 
+                                            	//recoger "atributo" listado personas de la request
+                                            	ArrayList<Persona> lista = (ArrayList<Persona>)request.getAttribute("listaUsuarios");
+                                            	if ( lista == null ) {
+                                            		lista = new ArrayList<Persona>();
+                                            	}
+                                            	for ( Persona persona : lista ){ 
+                                            %>
                                                 <tr>
-                                                    <td>1</td>
-                                                    <td><%=persona.getNombre()%></td>
+                                                    <td><%=persona.getId()%></td>
+                                                    <td><a href="usuarios?id=<%=persona.getId()%>" title="ir al detalle"><%=persona.getNombre()%></a></td>
                                                     <td>Vallejo</td>
                                                     <td>Java J2EE</td>
                                                 </tr>

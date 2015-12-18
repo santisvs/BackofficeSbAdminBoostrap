@@ -82,16 +82,18 @@ public class PersonaDAO implements Persistable<Persona> {
 	@Override
 	public boolean update( Persona p ) throws SQLException {
 		boolean resul = false;
-		DbConnection conn = new DbConnection();
-		String sql ="UPDATE `persona` SET `nombre`= ? WHERE  `id`= ? ;";
-		PreparedStatement pst = conn.getConnection().prepareStatement(sql);
-		pst.setString(1, p.getNombre() );
-		pst.setInt(2, p.getId() );
-		if ( pst.executeUpdate() == 1 ){
-    		resul = true;
-    	}    	
-    	pst.close();
-    	conn.desconectar();
+		if ( p!= null){
+			DbConnection conn = new DbConnection();
+			String sql ="UPDATE `persona` SET `nombre`= ? WHERE  `id`= ? ;";
+			PreparedStatement pst = conn.getConnection().prepareStatement(sql);
+			pst.setString(1, p.getNombre() );
+			pst.setInt(2, p.getId() );
+			if ( pst.executeUpdate() == 1 ){
+	    		resul = true;
+	    	}    	
+	    	pst.close();
+	    	conn.desconectar();
+		}	
 		return resul;
 	}
 

@@ -102,12 +102,41 @@ public class PersonaDAOTest {
 		}	
 	}
 
-	@Ignore
+	@Test
 	public void testUpdate() {
-		fail("Not yet implemented");
+		
+		//test todo funciona bien
+		//TODO comprobar resto de atributos
+		String nombreNuevo = "Mockito";
+		pMock.setNombre(nombreNuevo);
+		try{
+			assertTrue("No modifica",dao.update(pMock));
+		}catch(SQLException e){
+			fail("Tenemos una cagado la implemtacion en nuestro DAO " + e.getMessage());
+		}	
+		
+		assertEquals( nombreNuevo, pMock.getNombre() );
+		
+		
+		//test null
+		try{
+			assertFalse("No modifica persona NULL",dao.update(null));
+		}catch(SQLException e){
+			fail("Tenemos una cagado la implemtacion en nuestro DAO " + e.getMessage());
+		}	
+		
+		//test no existe persona a modificar
+		Persona pNoInsertada = new Persona();
+		try{
+			assertFalse("No modifica una persona que no exite",dao.update(pNoInsertada));
+		}catch(SQLException e){
+			fail("Tenemos una cagado la implemtacion en nuestro DAO " + e.getMessage());
+		}	
+		
+		
 	}
 
-	@Ignore
+	@Test
 	public void testInsert() {
 		fail("Not yet implemented");
 	}
