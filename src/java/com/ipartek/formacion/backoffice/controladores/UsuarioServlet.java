@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.backoffice.modelo.PersonaDAO;
 import com.ipartek.formacion.backoffice.pojo.Persona;
+import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 
 /**
  * Servlet implementation class UsuarioServlet
@@ -21,6 +22,8 @@ public class UsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private static int operacion;
+	
+	private static Mensaje msj;
 	
 	private static PersonaDAO daoPersona;
 	private static String pId; //parametro Identifacdor del usuario	
@@ -37,6 +40,7 @@ public class UsuarioServlet extends HttpServlet {
 		
 		try{
 			daoPersona = new PersonaDAO();
+			msj = null;
 			
 			//determinar operacion a realizar
 			if ( request.getParameter("op") != null  ){
@@ -68,6 +72,8 @@ public class UsuarioServlet extends HttpServlet {
 					modificarCrear(request);
 					break;	
 			}
+			
+			request.setAttribute("msj", msj);
 			
 			//servir la JSP
 			dispatch.forward(request, response);
@@ -105,7 +111,11 @@ public class UsuarioServlet extends HttpServlet {
 			if ( p.getId() == -1 ){
 				daoPersona.insert(p);
 			}else{
-				daoPersona.update(p);
+				if ( daoPersona.update(p) ){
+					msj = new Mensaje("Registro Modificado con Exito", Mensaje.TIPO_SUCCESS);
+				}else{
+					msj = new Mensaje("No Modificado registro", Mensaje.TIPO_WARNING);
+				}
 			}	
 			//listar
 			listar(request);
@@ -116,7 +126,11 @@ public class UsuarioServlet extends HttpServlet {
 		pId = request.getParameter("id");
 		int id = Integer.parseInt(pId);
 		
-		daoPersona.delete(id);
+		if ( daoPersona.delete(id) ){
+			msj = new Mensaje("Registro Eliminado con Exito", Mensaje.TIPO_SUCCESS);
+		}else{
+			msj = new Mensaje("No Eliminado registro", Mensaje.TIPO_DANGER);
+		}
 		listar(request);
 		
 	}

@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.backoffice.controladores.Mensaje"%>
 <%@page import="com.ipartek.formacion.backoffice.controladores.ControladorConstantes"%>
 <%@page import="com.ipartek.formacion.backoffice.pojo.Persona"%>
 <%@page import="java.util.ArrayList"%>
@@ -9,9 +10,11 @@
 <%@include file="../includes/nav.jsp" %>
 
         <div id="page-wrapper">
+        
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Usuarios</h1>
+                    <h1 class="page-header">Usuarios</h1>  
+                    <%@include file="../includes/mensaje.jsp" %>                  
                 </div>
                 <div class="panel panel-default">
                         <div class="panel-heading">
