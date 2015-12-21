@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.backoffice.controladores.ControladorConstantes"%>
 <%@page import="com.ipartek.formacion.backoffice.pojo.Persona"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.ResultSet"%>
@@ -16,21 +17,16 @@
                         <div class="panel-heading">
                             <i class="fa fa-user fa-fw"></i> Usuarios inscritos
                             <div class="pull-right">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                        Actions
-                                        <span class="caret"></span>
+                               
+                                    <button type="button" class="btn btn-default btn-xs" >
+                                        <a href="usuarios?op=<%=ControladorConstantes.OP_NUEVO%>"
+                                           title="Crear nuevo registro">
+                                        	<i class="fa fa-plus fa-fw"></i> 
+                                        	Añadir Usuario
+                                        </a>
                                     </button>
-                                    <ul class="dropdown-menu pull-right" role="menu">
-                                        <li><a href="pages/add_user.jsp"><i class="fa fa-plus fa-fw"></i> Añadir Usuario</a>
-                                        </li>
-                                        <li><a href="pages/delete_user.jsp"><i class="fa fa-minus fa-fw"></i> Eliminar Usuario</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li><a href="#"><i class="fa fa-filter fa-fw"></i> Filtro</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                    
+                               
                             </div>
                         </div>                      
                         
@@ -60,7 +56,7 @@
                                             %>
                                                 <tr>
                                                     <td><%=persona.getId()%></td>
-                                                    <td><a href="usuarios?id=<%=persona.getId()%>" title="ir al detalle"><%=persona.getNombre()%></a></td>
+                                                    <td><a href="usuarios?op=<%=ControladorConstantes.OP_DETALLE%>&id=<%=persona.getId()%>" title="ir al detalle"><%=persona.getNombre()%></a></td>
                                                     <td>Vallejo</td>
                                                     <td>Java J2EE</td>
                                                 </tr>

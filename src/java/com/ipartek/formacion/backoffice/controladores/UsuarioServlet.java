@@ -20,8 +20,10 @@ public class UsuarioServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
+	private static int operacion;
+	
 	private static PersonaDAO daoPersona;
-	private static String pId; //parametro Identifacdor del usuario
+	private static String pId; //parametro Identifacdor del usuario	
 	private RequestDispatcher dispatch;
 	
 	public static final String VISTA_USUARIOS_LISTAR  = "pages/usuarios.jsp";
@@ -36,14 +38,35 @@ public class UsuarioServlet extends HttpServlet {
 		try{
 			daoPersona = new PersonaDAO();
 			
-			//recoger parametros
-			pId = request.getParameter("id");		
-		
 			//determinar operacion a realizar
-			if ( pId != null ){
-				detalle(request);
+			if ( request.getParameter("op") != null  ){
+				operacion = Integer.parseInt( request.getParameter("op") );
 			}else{
-				listar(request);
+				operacion = ControladorConstantes.OP_LISTAR;
+			}	
+						
+			//realizar accion
+			switch (operacion) {
+			
+				case ControladorConstantes.OP_LISTAR:
+					listar(request);
+					break;
+	
+				case ControladorConstantes.OP_DETALLE:
+					detalle(request);
+					break;
+					
+				case ControladorConstantes.OP_NUEVO:
+					nuevo(request);
+					break;	
+					
+				case ControladorConstantes.OP_ELIMINAR:
+					eliminar(request);
+					break;
+					
+				case ControladorConstantes.OP_MODIFICAR:
+					modificarCrear(request);
+					break;	
 			}
 			
 			//servir la JSP
@@ -59,13 +82,62 @@ public class UsuarioServlet extends HttpServlet {
 		}
 	}
 
+	/**
+	 * Modifica o Crea una nueva persona	
+	 * @param request
+	 * @throws SQLException 
+	 */
+	private void modificarCrear(HttpServletRequest request) throws SQLException {
+
+			//recoger parametros formulario
+			pId = request.getParameter("id");
+			int id = Integer.parseInt(pId);
+		
+			String pNombre = request.getParameter("nombre");
+			
+			
+			//construir persona
+			Persona p  = new Persona();
+			p.setId(id);
+			p.setNombre(pNombre);
+			
+			//persitir en la bbdd
+			if ( p.getId() == -1 ){
+				daoPersona.insert(p);
+			}else{
+				daoPersona.update(p);
+			}	
+			//listar
+			listar(request);
+		
+	}
+
+	private void eliminar(HttpServletRequest request) throws SQLException {
+		pId = request.getParameter("id");
+		int id = Integer.parseInt(pId);
+		
+		daoPersona.delete(id);
+		listar(request);
+		
+	}
+
+	/**
+	 * Nos lleva a la vista del formulario para crear una persona
+	 * @param request
+	 */
+	private void nuevo(HttpServletRequest request) {
+		Persona p = new Persona();
+		request.setAttribute("persona", p );		
+		dispatch = request.getRequestDispatcher( VISTA_USUARIOS_DETALLE );		
+	}
+
 	private void detalle(HttpServletRequest request) throws SQLException {
 		
+		pId = request.getParameter("id");	
 		int id = Integer.parseInt(pId);		
 		Persona p = daoPersona.getById(id);
 		
-		request.setAttribute("persona", p);
-		
+		request.setAttribute("persona", p);		
 		dispatch = request.getRequestDispatcher( VISTA_USUARIOS_DETALLE );
 		
 	}
@@ -85,8 +157,7 @@ public class UsuarioServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		doGet(request, response);
 	}
 
