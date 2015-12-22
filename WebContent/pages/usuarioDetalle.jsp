@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+
 <%@page import="com.ipartek.formacion.backoffice.controladores.ControladorConstantes"%>
 <%@page import="com.ipartek.formacion.backoffice.pojo.Persona"%>
 <%@include file="../includes/head.jsp" %>

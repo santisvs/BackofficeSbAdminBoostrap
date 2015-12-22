@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+
 <%@include file="../includes/head.jsp" %>       
 <%@include file="../includes/nav.jsp" %>        
 
@@ -16,7 +18,7 @@
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu pull-right" role="menu">
-                                        <li><a href="#"><i class="fa fa-plus fa-fw"></i> Añadir Curso</a>
+                                        <li><a href="#"><i class="fa fa-plus fa-fw"></i> AÃ±adir Curso</a>
                                         </li>
                                         <li><a href="#"><i class="fa fa-minus fa-fw"></i> Eliminar Curso</a>
                                         </li>

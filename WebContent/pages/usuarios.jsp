@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+
 <%@page import="com.ipartek.formacion.backoffice.controladores.Mensaje"%>
 <%@page import="com.ipartek.formacion.backoffice.controladores.ControladorConstantes"%>
 <%@page import="com.ipartek.formacion.backoffice.pojo.Persona"%>
@@ -25,7 +27,7 @@
                                         <a href="usuarios?op=<%=ControladorConstantes.OP_NUEVO%>"
                                            title="Crear nuevo registro">
                                         	<i class="fa fa-plus fa-fw"></i> 
-                                        	Añadir Usuario
+                                        	AÃ±adir Usuario
                                         </a>
                                     </button>
                                     
