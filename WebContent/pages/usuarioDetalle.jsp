@@ -28,6 +28,8 @@
 						       placeholder="Escribe tu Nombre"
 						       required
 						       pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$"
+						       autofocus
+						       tabindex="1"
 						       >
 					
 							<input type="hidden" name="id" value="<%=p.getId()%>">
