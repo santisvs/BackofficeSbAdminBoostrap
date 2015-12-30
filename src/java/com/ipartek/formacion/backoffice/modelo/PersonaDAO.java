@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.backoffice.pojo.Persona;
+import com.mysql.jdbc.CallableStatement;
 
 public class PersonaDAO implements Persistable<Persona> {
 
@@ -120,6 +121,31 @@ public class PersonaDAO implements Persistable<Persona> {
 		return resul;
 	}
 	
+	public Persona getByDni(String dni) throws SQLException {
+		
+		Persona p = null;
+		
+		//crear conexion
+    	DbConnection conn = new DbConnection();
+    	
+    	//creamos consulta
+    	String sql = "{call getPersonaByDni (?) }";    	
+    	CallableStatement cs = (CallableStatement) conn.getConnection().prepareCall(sql);
+    	cs.setString(1, dni);
+    	
+    	ResultSet rs = cs.executeQuery();
+    	while( rs.next()){
+    		p = mapeo(rs);   
+    	}
+    	
+    	//cerrar recursos en orden inversa
+    	rs.close();
+    	cs.close();
+    	conn.desconectar();
+    	
+		return p;
+	}
+	
 	
 	private Persona mapeo ( ResultSet rs ) throws SQLException{
 		
@@ -128,5 +154,8 @@ public class PersonaDAO implements Persistable<Persona> {
 		 p.setNombre( rs.getString("nombre"));
 		 return p;
 	}
+	
+	
+	
 
 }

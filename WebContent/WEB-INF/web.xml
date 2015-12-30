@@ -4,17 +4,24 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-  
   <servlet>
     <description>Controlador para gestionar las operaciones sobre usuarios</description>
     <display-name>UsuarioServlet</display-name>
     <servlet-name>UsuarioServlet</servlet-name>
     <servlet-class>com.ipartek.formacion.backoffice.controladores.UsuarioServlet</servlet-class>
   </servlet>
-  
   <servlet-mapping>
     <servlet-name>UsuarioServlet</servlet-name>
     <url-pattern>/usuarios</url-pattern>
   </servlet-mapping>
-  
+  <servlet>
+    <description>Controlador para buscar cualquier cosa del backend</description>
+    <display-name>SearchServlet</display-name>
+    <servlet-name>SearchServlet</servlet-name>
+    <servlet-class>com.ipartek.formacion.backoffice.controladores.SearchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchServlet</servlet-name>
+    <url-pattern>/search</url-pattern>
+  </servlet-mapping>
 </web-app>

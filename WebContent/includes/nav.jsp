@@ -5,11 +5,23 @@
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
+                            
+                            	<form method="get" action="search">
+	                                <input type="text" 
+	                                	   id="criterio"
+	                                       name="criterio" 
+	                                       class="form-control" 
+	                                       placeholder="Search..."
+	                                       autofocus
+	                                       required
+	                                       min="1"
+	                                       >
+	                                <span class="input-group-btn">
+	                                <button class="btn btn-default" type="submit">
+	                                    <i class="fa fa-search"></i>
+	                                </button>
+                                </form>
+                                
                             	</span>
                             </div>
                             <!-- /input-group -->
